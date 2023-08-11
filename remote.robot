@@ -3,10 +3,10 @@ Library    Remote    http://${ADDRESS}:${PORT}
 Library    Basic_SupportLib.py
 
 *** Variables ***
-${ADDRESS}    127.0.0.1
-# ${ADDRESS}    10.105.8.16
+# ${ADDRESS}    127.0.0.1
+${ADDRESS}    10.105.8.16
 ${PORT}       8270
-${retries}    10
+${retries}    20
 
 *** Keywords ***
 Wait For System Online
@@ -39,8 +39,8 @@ Failing Example
     Strings Should Be Equal    not      equal
 	
 Test Mod Cycle
-	# ${ret} =    Start Modcycle
-    # Log    Test Output Ret=> ${ret}
+	${ret} =    Start Modcycle
+    Log    Test Output Ret=> ${ret}
 
 Test Reboot
     # Start Reboot
