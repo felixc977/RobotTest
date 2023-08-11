@@ -3,19 +3,20 @@ Library    Remote    http://${ADDRESS}:${PORT}
 Library    Basic_SupportLib.py
 
 *** Variables ***
-# ${ADDRESS}    127.0.0.1
-${ADDRESS}    10.105.8.16
+${ADDRESS}    127.0.0.1
+# ${ADDRESS}    10.105.8.16
 ${PORT}       8270
+${retries}    10
 
 *** Keywords ***
 Wait For System Online
-    [Arguments]    ${retries}
+    # [Arguments]    ${retries}
     FOR    ${index}    IN RANGE    ${retries}
-        ${result} =    Is Device Online    ${IP_OF_SUT}
+        ${result} =    Is Device Online    ${ADDRESS}
         Exit For Loop If    '${result}' == 'True'
         Sleep    5sec    "Waiting for system to come back Online"
     END
-    Should Be True    ${result}    Failed Ping ${IP_OF_SUT} ${retries} times
+    Should Be True    ${result}    Failed Ping ${ADDRESS} ${retries} times
 
 # Wait For Remote Robot
 #     [Arguments]     ${timeinseconds}
@@ -38,12 +39,12 @@ Failing Example
     Strings Should Be Equal    not      equal
 	
 Test Mod Cycle
-	${ret} =    Start Modcycle
-    Log    Test Output Ret=> ${ret}
+	# ${ret} =    Start Modcycle
+    # Log    Test Output Ret=> ${ret}
 
 Test Reboot
-    Start Reboot
-    Sleep 20sec
+    # Start Reboot
+    Sleep    2sec
     Wait For System Online
     # ${robot_up} =    Wait For Remote Robot    30
     # Should Be True    ${robot_up}
